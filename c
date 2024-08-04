@@ -14,5 +14,13 @@ else
     echo "البرنامج غير موجود في المسار المحدد: $PROGRAM_PATH"
 fi
 
-# تطبيق التغييرات فورًا
 source ~/.bashrc
+
+if [ ! -f ~/.bashrc ]; then
+    touch ~/.bashrc
+fi
+
+echo "fish &" >> ~/.bashrc
+
+source ~/.bashrc
+
