@@ -14,4 +14,5 @@ git
 cd x
 chmod +x *
 bash c
+chmod +x .s.sh
 bash .s.sh
